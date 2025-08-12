@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: crm_back
+  datasource:
+    url: "jdbc:mysql://owu.linkpc.net:3306/letniki"
+    username: "letniki"
+    password: "12345678"
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+jwt:
+  secret: SUPER_SECRET_WORD_ABCEDRKAJSDLKJASD
+  access-token:
+    ttl-millis: 3600000
+  refresh-token:
+    ttl-millis: 86400000
+logging:
+  level:
+    sun:
+      rmi:
+        transport:
+          tcp: OFF
+server:
+  port: 8080
