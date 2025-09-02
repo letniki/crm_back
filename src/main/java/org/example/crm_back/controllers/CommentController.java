@@ -15,7 +15,7 @@ import java.util.List;
 public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<CommentDto> createComment(@PathVariable Long orderId, @RequestHeader("Authorization") String token, @RequestBody CommentDto dto) {
 
         return new ResponseEntity<>(
@@ -24,11 +24,8 @@ public class CommentController {
         );
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<CommentDto>> getComments(@PathVariable Long orderId) {
-        return new ResponseEntity<>(
-                commentService.getComments(orderId),
-                HttpStatus.OK
-        );
+        return new ResponseEntity<>(commentService.getComments(orderId), HttpStatus.OK);
     }
 }

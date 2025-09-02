@@ -13,6 +13,7 @@ spring:
       hibernate:
         format_sql: true
         physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        show_sql: true
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
 jwt:
