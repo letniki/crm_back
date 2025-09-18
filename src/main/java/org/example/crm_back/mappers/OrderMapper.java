@@ -41,19 +41,19 @@ public class OrderMapper {
             return;
         }
 
-        order.setName(dto.getName());
-        order.setSurname(dto.getSurname());
-        order.setEmail(dto.getEmail());
-        order.setPhone(dto.getPhone());
-        order.setAge(dto.getAge());
-        order.setCourse(dto.getCourse());
-        order.setCourseFormat(dto.getCourseFormat());
-        order.setCourseType(dto.getCourseType());
-        order.setSum(dto.getSum());
-        order.setAlreadyPaid(dto.getAlreadyPaid());
-        order.setUtm(dto.getUtm());
-        order.setMsg(dto.getMsg());
-        order.setStatus(dto.getStatus());
+        if (dto.getName() != null) order.setName(dto.getName());
+        if (dto.getSurname() != null) order.setSurname(dto.getSurname());
+        if (dto.getEmail() != null) order.setEmail(dto.getEmail());
+        if (dto.getPhone() != null) order.setPhone(dto.getPhone());
+        if (dto.getAge() != null) order.setAge(dto.getAge());
+        if (dto.getCourse() != null) order.setCourse(dto.getCourse());
+        if (dto.getCourseFormat() != null) order.setCourseFormat(dto.getCourseFormat());
+        if (dto.getCourseType() != null) order.setCourseType(dto.getCourseType());
+        if (dto.getSum() != null) order.setSum(dto.getSum());
+        if (dto.getAlreadyPaid() != null) order.setAlreadyPaid(dto.getAlreadyPaid());
+        if (dto.getUtm() != null) order.setUtm(dto.getUtm());
+        if (dto.getMsg() != null) order.setMsg(dto.getMsg());
+        if (dto.getStatus() != null) order.setStatus(dto.getStatus());
 
         if (dto.getGroupName() != null) {
             Group group = groupRepository.findByName(dto.getGroupName())

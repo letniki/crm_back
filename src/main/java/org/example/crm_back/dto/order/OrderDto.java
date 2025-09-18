@@ -1,6 +1,5 @@
 package org.example.crm_back.dto.order;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -20,12 +19,12 @@ public class OrderDto {
     private String name;
     @Size(max = 25, message = "Surname: 25 symbols max")
     private String surname;
-    @Pattern(regexp = "^(?=.{1,100}$)[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+    @Pattern(regexp = "^(?=.{2,100}$)[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
             message = "Email: invalid format")
     private String email;
     @Size(max = 12, message = "Phone: 12 symbols max")
     private String phone;
-    @Min(1)
+
     private Integer age;
     @Size(max = 10, message = "Course: 10 symbols max")
     private String course;
@@ -35,9 +34,9 @@ public class OrderDto {
     private String courseType;
 
     private String status;
-    @Min(1)
+
     private Integer sum;
-    @Min(1)
+
     private Integer alreadyPaid;
     private LocalDateTime createdAt;
     @Size(max = 100, message = "UTM: 100 symbols max")

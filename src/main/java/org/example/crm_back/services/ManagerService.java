@@ -27,7 +27,7 @@ public class ManagerService implements UserDetailsService {
         Manager manager = new Manager();
         manager.setEmail(signUpRequestDto.getEmail());
         manager.setPassword(password);
-        manager.setRole(Role.ROlE_MANAGER);
+        manager.setRole(Role.ROLE_MANAGER);
         managerRepository.save(manager);
 
         return SignUpResponseDto.builder()

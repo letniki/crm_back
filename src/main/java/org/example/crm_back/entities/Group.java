@@ -24,7 +24,7 @@ public class Group {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.PERSIST)
     private List<Order> orders = new ArrayList<>();
     public Group(String name) {
         this.name = name;
