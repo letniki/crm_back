@@ -51,7 +51,6 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: true
-
   - changeSet:
       id: 1.0.2
       author: letniki
@@ -61,10 +60,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: email
-                  value: ${ADMIN_EMAIL}
+                  value: admin@gmail.com
               - column:
                   name: password
-                  value: ${ADMIN_PASSWORD}
+                  value: admin
               - column:
                   name: role
                   value: "ROLE_ADMIN"
@@ -82,7 +81,7 @@ databaseChangeLog:
                   value: null
   - changeSet:
       id: 1.0.3
-      author: dina
+      author: letniki
       changes:
         - addColumn:
             tableName: orders
@@ -95,7 +94,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
   - changeSet:
       id: 1.0.4
-      author: dina
+      author: letniki
       changes:
         - createTable:
             tableName: comments
@@ -133,7 +132,7 @@ databaseChangeLog:
                     nullable: false
   - changeSet:
       id: 1.0.5
-      author: dina
+      author: letniki
       changes:
         - createTable:
             tableName: groups
@@ -167,7 +166,7 @@ databaseChangeLog:
                     onDelete: SET NULL
   - changeSet:
       id: 1.0.6
-      author: dina
+      author: letniki
       changes:
         - addColumn:
             tableName: managers
