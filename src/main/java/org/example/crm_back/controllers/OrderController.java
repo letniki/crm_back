@@ -3,6 +3,9 @@ package org.example.crm_back.controllers;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.crm_back.dto.order.*;
+import org.example.crm_back.dto.pagination.FilterDto;
+import org.example.crm_back.dto.pagination.PaginationResponseDto;
+import org.example.crm_back.dto.pagination.SortDto;
 import org.example.crm_back.mappers.OrderMapper;
 import org.example.crm_back.services.OrderService;
 import org.springframework.http.HttpStatus;
@@ -19,31 +22,31 @@ public class OrderController {
     private final OrderMapper orderMapper;
 
     @GetMapping("/")
-    public ResponseEntity<OrderPaginationResponseDto> getOrders(
+    public ResponseEntity<PaginationResponseDto<OrderDto>> getOrders(
             @Valid SortDto sortDto,
             @Valid FilterDto filterDto,
             @RequestParam(value = "isAssignedToMe", defaultValue = "false") boolean isAssignedToMe,
             @RequestHeader("Authorization") String token) {
         filterDto.setIsAssignedToMe(isAssignedToMe);
         if (filterDto.isEmpty()) {
-            OrderPaginationResponseDto response = orderService.getOrders(sortDto);
+            PaginationResponseDto<OrderDto> response = orderService.getOrders(sortDto);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
-            OrderPaginationResponseDto response = orderService.getOrdersWithFilters(filterDto, sortDto, token.replace("Bearer ", ""));
+            PaginationResponseDto<OrderDto> response = orderService.getOrdersWithFilters(filterDto, sortDto, token.replace("Bearer ", ""));
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
     @GetMapping("/stats")
-    public ResponseEntity<List<StatDTO>> getOrderStats() {
+    public ResponseEntity<List<StatDto>> getOrderStats() {
         return new ResponseEntity<>(orderService.getOrderStats(), HttpStatus.OK);
     }
 
     @Valid @PatchMapping("/order/{id}")
     public ResponseEntity<Void> updateOrder(@PathVariable Long id,
-                                            @RequestBody OrderFormDataDto orderFormDataDto,
+                                            @RequestBody OrderRequestDto orderRequestDto,
                                             @RequestHeader("Authorization") String token){
-        OrderDto orderDto = orderMapper.mapToOrderDto(orderFormDataDto);
+        OrderDto orderDto = orderMapper.mapToOrderDto(orderRequestDto);
         orderService.updateOrder(id, orderDto, token.replace("Bearer ", ""));
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

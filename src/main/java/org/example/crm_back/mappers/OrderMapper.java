@@ -3,7 +3,7 @@ package org.example.crm_back.mappers;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.example.crm_back.dto.order.OrderDto;
-import org.example.crm_back.dto.order.OrderFormDataDto;
+import org.example.crm_back.dto.order.OrderRequestDto;
 import org.example.crm_back.entities.Group;
 import org.example.crm_back.entities.Order;
 import org.example.crm_back.repositories.GroupRepository;
@@ -36,47 +36,44 @@ public class OrderMapper {
                 .build();
     }
 
-    public void updateEntity(Order order, OrderDto dto) {
-        if (dto == null || order == null) {
+    public void updateEntity(Order order, OrderDto orderDto) {
+        if (orderDto == null || order == null) {
             return;
         }
-
-        if (dto.getName() != null) order.setName(dto.getName());
-        if (dto.getSurname() != null) order.setSurname(dto.getSurname());
-        if (dto.getEmail() != null) order.setEmail(dto.getEmail());
-        if (dto.getPhone() != null) order.setPhone(dto.getPhone());
-        if (dto.getAge() != null) order.setAge(dto.getAge());
-        if (dto.getCourse() != null) order.setCourse(dto.getCourse());
-        if (dto.getCourseFormat() != null) order.setCourseFormat(dto.getCourseFormat());
-        if (dto.getCourseType() != null) order.setCourseType(dto.getCourseType());
-        if (dto.getSum() != null) order.setSum(dto.getSum());
-        if (dto.getAlreadyPaid() != null) order.setAlreadyPaid(dto.getAlreadyPaid());
-        if (dto.getUtm() != null) order.setUtm(dto.getUtm());
-        if (dto.getMsg() != null) order.setMsg(dto.getMsg());
-        if (dto.getStatus() != null) order.setStatus(dto.getStatus());
-
-        if (dto.getGroupName() != null) {
-            Group group = groupRepository.findByName(dto.getGroupName())
-                    .orElseGet(() -> new Group(dto.getGroupName()));
+        if (orderDto.getName() != null) order.setName(orderDto.getName());
+        if (orderDto.getSurname() != null) order.setSurname(orderDto.getSurname());
+        if (orderDto.getEmail() != null) order.setEmail(orderDto.getEmail());
+        if (orderDto.getPhone() != null) order.setPhone(orderDto.getPhone());
+        if (orderDto.getAge() != null) order.setAge(orderDto.getAge());
+        if (orderDto.getCourse() != null) order.setCourse(orderDto.getCourse());
+        if (orderDto.getCourseFormat() != null) order.setCourseFormat(orderDto.getCourseFormat());
+        if (orderDto.getCourseType() != null) order.setCourseType(orderDto.getCourseType());
+        if (orderDto.getSum() != null) order.setSum(orderDto.getSum());
+        if (orderDto.getAlreadyPaid() != null) order.setAlreadyPaid(orderDto.getAlreadyPaid());
+        if (orderDto.getUtm() != null) order.setUtm(orderDto.getUtm());
+        if (orderDto.getMsg() != null) order.setMsg(orderDto.getMsg());
+        if (orderDto.getStatus() != null) order.setStatus(orderDto.getStatus());
+        if (orderDto.getGroupName() != null) {
+            Group group = groupRepository.findByName(orderDto.getGroupName())
+                    .orElseGet(() -> new Group(orderDto.getGroupName()));
             order.setGroup(group);
         }
     }
 
-    public OrderDto mapToOrderDto(OrderFormDataDto orderFormDataDto) {
+    public OrderDto mapToOrderDto(OrderRequestDto orderRequestDto) {
         OrderDto orderDto = new OrderDto();
-        orderDto.setName(orderFormDataDto.getName());
-        orderDto.setSurname(orderFormDataDto.getSurname());
-        orderDto.setEmail(orderFormDataDto.getEmail());
-        orderDto.setPhone(orderFormDataDto.getPhone());
-        orderDto.setAge(NumberUtils.toInt(orderFormDataDto.getAge(), 0));
-        orderDto.setSum(orderFormDataDto.getSum() != null ? orderFormDataDto.getSum().intValue() : 0);
-        orderDto.setAlreadyPaid(orderFormDataDto.getAlreadyPaid() != null ? orderFormDataDto.getAlreadyPaid().intValue() : 0);
-        orderDto.setStatus(orderFormDataDto.getStatus());
-        orderDto.setCourse(orderFormDataDto.getCourse());
-        orderDto.setCourseFormat(orderFormDataDto.getCourseFormat());
-        orderDto.setCourseType(orderFormDataDto.getCourseType());
-        orderDto.setGroupName(orderFormDataDto.getGroupName());
-
+        orderDto.setName(orderRequestDto.getName());
+        orderDto.setSurname(orderRequestDto.getSurname());
+        orderDto.setEmail(orderRequestDto.getEmail());
+        orderDto.setPhone(orderRequestDto.getPhone());
+        orderDto.setAge(NumberUtils.toInt(orderRequestDto.getAge(), 0));
+        orderDto.setSum(orderRequestDto.getSum() != null ? orderRequestDto.getSum() : 0);
+        orderDto.setAlreadyPaid(orderRequestDto.getAlreadyPaid() != null ? orderRequestDto.getAlreadyPaid() : 0);
+        orderDto.setStatus(orderRequestDto.getStatus());
+        orderDto.setCourse(orderRequestDto.getCourse());
+        orderDto.setCourseFormat(orderRequestDto.getCourseFormat());
+        orderDto.setCourseType(orderRequestDto.getCourseType());
+        orderDto.setGroupName(orderRequestDto.getGroupName());
         return orderDto;
     }
 }

@@ -75,4 +75,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             @Param("endDate") LocalDateTime endDate,
             @Param("managerSurname") String managerSurname
     );
+
+    List<Order> findAllByManager(String managerSurname);
 }

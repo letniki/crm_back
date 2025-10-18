@@ -1,4 +1,4 @@
-package org.example.crm_back.dto.comment;
+package org.example.crm_back.dto.manager;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -7,14 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class CommentDto {
-    private Long id;
+public class CreateManagerRequestDto {
     @NotBlank
-    private String body;
+    private String email;
+
     @NotBlank
-    private String author;
-    private String createdAt;
+    private String name;
+
+    @NotBlank
+    private String surname;
 }

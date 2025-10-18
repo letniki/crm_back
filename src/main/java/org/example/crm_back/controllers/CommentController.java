@@ -15,17 +15,18 @@ import java.util.List;
 public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping("/")
-    public ResponseEntity<CommentDto> createComment(@PathVariable Long orderId, @RequestHeader("Authorization") String token, @RequestBody CommentDto dto) {
-
-        return new ResponseEntity<>(
-                commentService.createComment(orderId, token.replace("Bearer ", ""), dto),
-                HttpStatus.ACCEPTED
-        );
-    }
-
     @GetMapping("/")
     public ResponseEntity<List<CommentDto>> getComments(@PathVariable Long orderId) {
         return new ResponseEntity<>(commentService.getComments(orderId), HttpStatus.OK);
+    }
+
+
+    @PostMapping("/")
+    public ResponseEntity<CommentDto> createComment(@PathVariable Long orderId, @RequestHeader("Authorization") String token, @RequestBody CommentDto commentDto) {
+
+        return new ResponseEntity<>(
+                commentService.createComment(orderId, token.replace("Bearer ", ""), commentDto),
+                HttpStatus.ACCEPTED
+        );
     }
 }

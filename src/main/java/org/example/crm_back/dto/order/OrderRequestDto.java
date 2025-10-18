@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderFormDataDto {
+public class OrderRequestDto {
     @Size(max = 25, message = "Name: 25 symbols max")
     private String name;
     @Size(max = 25, message = "Surname: 25 symbols max")
@@ -32,9 +32,9 @@ public class OrderFormDataDto {
     @Size(max = 100, message = "Course type: 100 symbols max")
     private String courseType;
 
-    private Double sum;
+    private Integer sum;
 
-    private Double alreadyPaid;
+    private Integer alreadyPaid;
     @Size(max = 50, message = "Group name: 50 symbols max")
     private String groupName;
 }

@@ -3,6 +3,9 @@ package org.example.crm_back.services;
 import com.alibaba.excel.EasyExcel;
 import lombok.RequiredArgsConstructor;
 import org.example.crm_back.dto.order.*;
+import org.example.crm_back.dto.pagination.FilterDto;
+import org.example.crm_back.dto.pagination.PaginationResponseDto;
+import org.example.crm_back.dto.pagination.SortDto;
 import org.example.crm_back.entities.Group;
 import org.example.crm_back.entities.Manager;
 import org.example.crm_back.entities.Order;
@@ -32,14 +35,14 @@ public class OrderService {
     private final GroupService groupService;
     private final OrderMapper orderMapper;
 
-    public OrderPaginationResponseDto getOrders(SortDto sortDto) {
+    public PaginationResponseDto<OrderDto> getOrders(SortDto sortDto) {
 
         Pageable pageable = createPageable(sortDto.getPage(), sortDto.getOrder(), sortDto.getDirection());
         Page<Order> ordersPage = orderRepository.findAll(pageable);
         return retrieveOrdersFromRepo(pageable, ordersPage);
     }
 
-    public List<StatDTO> getOrderStats() {
+    public List<StatDto> getOrderStats() {
         List<Order> orders = orderRepository.findAll();
 
         return orders.stream()
@@ -49,11 +52,13 @@ public class OrderService {
                 ))
                 .entrySet()
                 .stream()
-                .map(entry -> new StatDTO(entry.getKey(), entry.getValue()))
+                .map(entry -> new StatDto(entry.getKey(), entry.getValue()))
                 .toList();
     }
 
-    public OrderPaginationResponseDto getOrdersWithFilters(FilterDto filterDto, SortDto sortDto, String token) {
+    public PaginationResponseDto<OrderDto> getOrdersWithFilters(FilterDto filterDto,
+                                                                SortDto sortDto,
+                                                                String token) {
         Pageable pageable = createPageable(sortDto.getPage(), sortDto.getOrder(), sortDto.getDirection());
         String managerSurname = null;
         if (Boolean.TRUE.equals(filterDto.getIsAssignedToMe())) {
@@ -77,7 +82,8 @@ public class OrderService {
         return retrieveOrdersFromRepo(pageable, ordersPage);
     }
 
-    private OrderPaginationResponseDto retrieveOrdersFromRepo(Pageable pageable, Page<Order> ordersPage) {
+    private PaginationResponseDto<OrderDto> retrieveOrdersFromRepo(Pageable pageable,
+                                                                   Page<Order> ordersPage) {
         List<OrderDto> orderDtos = ordersPage
                 .getContent()
                 .stream()
@@ -86,7 +92,7 @@ public class OrderService {
         Integer nextPage = ordersPage.hasNext() ? pageable.getPageNumber() + 1 : null;
         Integer prevPage = ordersPage.hasPrevious() ? pageable.getPageNumber() - 1 : null;
 
-        return new OrderPaginationResponseDto(
+        return new PaginationResponseDto<>(
                 ordersPage.getTotalElements(),
                 pageable.getPageSize(),
                 nextPage,
@@ -160,7 +166,7 @@ public class OrderService {
         return outputStream.toByteArray();
     }
 
-    private Manager getManagerFromToken(String token) {
+    public Manager getManagerFromToken(String token) {
         String email = jwtUtility.extractUsername(token);
         return managerRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Manager not found"));

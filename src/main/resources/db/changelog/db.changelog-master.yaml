@@ -23,7 +23,7 @@ databaseChangeLog:
                   name: password
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: role
                   type: varchar(255)
@@ -37,6 +37,18 @@ databaseChangeLog:
               - column:
                   name: surname
                   type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: isActive
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lastLogIn
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: true
 
@@ -49,10 +61,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: email
-                  value: admin@gmail.com
+                  value: ${ADMIN_EMAIL}
               - column:
                   name: password
-                  value: admin
+                  value: ${ADMIN_PASSWORD}
               - column:
                   name: role
                   value: "ROLE_ADMIN"
@@ -62,9 +74,15 @@ databaseChangeLog:
               - column:
                   name: surname
                   value: "adminovich"
+              - column:
+                  name: isActive
+                  value: 1
+              - column:
+                  name: lastLogIn
+                  value: null
   - changeSet:
       id: 1.0.3
-      author: letniki
+      author: dina
       changes:
         - addColumn:
             tableName: orders
@@ -77,7 +95,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
   - changeSet:
       id: 1.0.4
-      author: letniki
+      author: dina
       changes:
         - createTable:
             tableName: comments
@@ -115,7 +133,7 @@ databaseChangeLog:
                     nullable: false
   - changeSet:
       id: 1.0.5
-      author: letniki
+      author: dina
       changes:
         - createTable:
             tableName: groups
@@ -147,3 +165,16 @@ databaseChangeLog:
                     foreignKeyName: fk_orders_groups
                     references: groups(id)
                     onDelete: SET NULL
+  - changeSet:
+      id: 1.0.6
+      author: dina
+      changes:
+        - addColumn:
+            tableName: managers
+            columns:
+              - column:
+                  name: isBanned
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

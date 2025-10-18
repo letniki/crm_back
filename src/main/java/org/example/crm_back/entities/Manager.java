@@ -10,6 +10,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 @Entity
@@ -40,6 +42,14 @@ public class Manager implements UserDetails {
     @Column(nullable = false)
     private String surname;
 
+    @Column(nullable = false)
+    private Boolean isActive = false;
+
+    private LocalDateTime lastLogIn;
+
+    @Column(nullable = false)
+    private Boolean isBanned = false;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.toString()));
@@ -49,6 +59,7 @@ public class Manager implements UserDetails {
     public String getPassword() {
         return password;
     }
+
 
     @Override
     public String getUsername() {
