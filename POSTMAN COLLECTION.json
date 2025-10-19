@@ -71,6 +71,70 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "generateTokenForPassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTc2MDg5MTYzMCwiZXhwIjoxNzYwODk1MjMwfQ.GX590r1xhLKhIms9WoGy3b9In1pXPxQYwIkuPJLrBQU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/api/auth/setPassword/id/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"api",
+								"auth",
+								"setPassword",
+								"id",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"asd\",\r\n    \"confirmPassword\": \"asd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/api/auth/setPassword/eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX01BTkFHRVIiXSwic3ViIjoibWFuYWdlckBnbWFpbC5jb20iLCJpYXQiOjE3NjA4OTE2ODAsImV4cCI6MTc2MDg5NTI4MH0.7hC3RIS0G47YzRZwWU0NT3ZHD6QKL9WdrHyPegX8JY4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"api",
+								"auth",
+								"setPassword",
+								"eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX01BTkFHRVIiXSwic3ViIjoibWFuYWdlckBnbWFpbC5jb20iLCJpYXQiOjE3NjA4OTE2ODAsImV4cCI6MTc2MDg5NTI4MH0.7hC3RIS0G47YzRZwWU0NT3ZHD6QKL9WdrHyPegX8JY4"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
